@@ -1,46 +1,46 @@
 package com.todenterprises.wyaapp.controllers;
 
+import com.todenterprises.wyaapp.database.OfficeMate;
+import com.todenterprises.wyaapp.database.OfficeMateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.http.ResponseEntity;
-
-import com.todenterprises.wyaapp.database.*;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController 
+@RestController
 public class RestRoutes {
-    
+
     @Autowired
     private OfficeMateRepository repository;
 
-    @GetMapping ("/api/get/officemates")
+    @GetMapping("/api/get/officemates")
     @ResponseBody
-    public List <OfficeMate> getUsers () {
-        return repository.findAll ();
+    public List<OfficeMate> getUsers() {
+        return repository.findAll();
     }
 
-    @PostMapping ("/api/post/officemate")
-    public int postUser (@RequestBody OfficeMate officemate) {
-        repository.save (officemate);
-
+    @PostMapping("/api/post/officemate")
+    public int postUser(@RequestBody OfficeMate officemate) {
+        repository.save(officemate);
         return 201;
     }
 
-    @PutMapping ("/api/update/officemate")
-    public int updateUser () {
-        return 202;
+    @PutMapping("/api/update/officemate/{id}")
+    public OfficeMate updateUser(@RequestBody OfficeMate newOfficemate, @PathVariable String id) {
+        return repository.findById(id)
+                .map(officeMate -> {
+                    officeMate.setStatus(newOfficemate.getStatus());
+                    officeMate.setLocation(newOfficemate.getLocation());
+                    return repository.save(officeMate);
+                })
+                .orElseGet(() -> {
+                    newOfficemate.setId(id);
+                    return repository.save(newOfficemate);
+                });
     }
 
-    @DeleteMapping ("/api/delete/officemate")
-    public int deleteUser () {
-        return 202;
+    @DeleteMapping("/api/officemate/{id}")
+    public void deleteUser(@PathVariable String id) {
+        repository.deleteById(id);
     }
-
 }

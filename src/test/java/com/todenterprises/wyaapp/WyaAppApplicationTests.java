@@ -9,5 +9,4 @@ class WyaAppApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
