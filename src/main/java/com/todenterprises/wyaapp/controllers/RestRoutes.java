@@ -39,6 +39,17 @@ public class RestRoutes {
                 });
     }
 
+    @DeleteMapping ("/api/delete/officemate/name/{name}")
+    public void deleteUserByName (@PathVariable String name) {
+        List <OfficeMate> users = repository.findAll ();
+
+        users.forEach (officemate -> {
+           
+            if (officemate.getName ().replaceAll ("\\s", "").equals (name)) repository.deleteById (officemate.getId ());
+            
+        });
+    }
+
     @DeleteMapping("/api/officemate/{id}")
     public void deleteUser(@PathVariable String id) {
         repository.deleteById(id);

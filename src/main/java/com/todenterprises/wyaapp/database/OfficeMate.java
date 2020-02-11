@@ -30,6 +30,10 @@ public class OfficeMate {
         this.password   = password;
     }
 
+    public String getId () {
+        return id;
+    }
+
     public String getName () {
         return first_name + " " + last_name;
     }
@@ -65,4 +69,5 @@ public class OfficeMate {
     public void setLocation (String location) {
         this.location = location;
     }
+
 }
