@@ -20,9 +20,8 @@ public class RestRoutes {
     }
 
     @PostMapping("/api/post/officemate")
-    public int postUser(@RequestBody OfficeMate officemate) {
-        repository.save(officemate);
-        return 201;
+    public OfficeMate postUser(@RequestBody OfficeMate officemate) {
+        return repository.save(officemate);
     }
 
     @PutMapping("/api/update/officemate/{id}")

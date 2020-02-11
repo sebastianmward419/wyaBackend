@@ -19,7 +19,7 @@ public class OfficeMate {
     private String status;
     private String location;
 
-    private Day[] calender = new OfficemateCalender ().createCalender();
+    // private Day[] calender = new OfficemateCalender ().createCalender();
 
     public OfficeMate (String first_name,String last_name, String status, String location, String email, String password) {
         this.first_name = first_name;
@@ -53,10 +53,6 @@ public class OfficeMate {
     public String getPassword () {
         return password;
     }
-
-    public Day[] getCalender () {
-        return calender;
-    }   
 
     public void setId (String id) {
         this.id = id;
