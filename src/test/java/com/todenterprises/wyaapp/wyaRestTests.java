@@ -10,6 +10,9 @@ import net.minidev.json.JSONObject;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.everyItem;
 public class wyaRestTests {
+
+    private String idPosted = "";
+
     @Test
     public void getOfficeMates () {
         Response getRequest = RestAssured.given ().get ("/api/get/officemates");
@@ -32,11 +35,11 @@ public class wyaRestTests {
         reqObj.put("password", "DEFAULT");
 
         Response postRequest = RestAssured.given ().contentType (ContentType.JSON).body (reqObj.toJSONString ()).post ("/api/post/officemate");
-        postRequest.print();
-        System.out.println (postRequest);
+         
         postRequest
         .then       ()
-        .statusCode (200);
+        .log ().all();
+
     }
 
     @Test
@@ -45,7 +48,11 @@ public class wyaRestTests {
     }
 
     @Test 
-    public void deleteOfficeMate () {
+    public void deleteOfficeMateByName () {
+        Response deleteResponse = RestAssured.given ().delete ("/api/delete/officemate/name/DarwNaitsabes");
 
+        deleteResponse
+        .then ()
+        .statusCode (200);
     }
 }
