@@ -1,7 +1,6 @@
 package com.todenterprises.wyaapp.controllers;
 
 import com.todenterprises.wyaapp.database.OfficeMate;
-import com.todenterprises.wyaapp.database.OfficeMateRepository;
 import com.todenterprises.wyaapp.services.RestService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,64 +8,53 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class RestRoutes {
 
     @Autowired
-    private OfficeMateRepository repository;
-
-    @Autowired
     private RestService restService;
 
+// GET ROUTES
     @GetMapping("/api/get/officemates")
-    public ResponseEntity<Object> getUsersRoute () {
+    ResponseEntity<Object> getUsersRoute () {
         return new ResponseEntity<>(restService.getUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/api/get/officemate/{id}")
-    public ResponseEntity<Object> getUserRoute (@PathVariable String id) {
+    ResponseEntity<Object> getUserRoute (@PathVariable String id) {
        return new ResponseEntity<>(restService.getUser(id), HttpStatus.OK);
     }
 
+// POST ROUTES
     @PostMapping("/api/post/officemate")
-    public ResponseEntity postUser(@RequestBody OfficeMate officemate) {
+    ResponseEntity<Object> postUserRoute (@RequestBody OfficeMate officemate) {
         return new ResponseEntity<>(restService.postUser(officemate), HttpStatus.CREATED);
     }
 
+// PUT ROUTES
     @PutMapping("/api/update/officemate/{id}")
-    public OfficeMate updateUser(@RequestBody OfficeMate newOfficemate, @PathVariable String id) {
-        return repository.findById(id)
-                .map(officeMate -> {
-                    officeMate.setStatus(newOfficemate.getStatus());
-                    officeMate.setLocation(newOfficemate.getLocation());
-                    return repository.save(officeMate);
-                })
-                .orElseGet(() -> {
-                    newOfficemate.setId(id);
-                    return repository.save(newOfficemate);
-                });
+    ResponseEntity<Object> updateUserRoute (@PathVariable String id, @RequestBody OfficeMate officemate) {
+        return new ResponseEntity<>(restService.updateUser(id, officemate), HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping ("/api/delete/officemate/name/{name}")
-    public void deleteUserByName (@PathVariable String name, HttpServletResponse response) {
-        List <OfficeMate> users = repository.findAll ();
+// DELETE ROUTES
+    @DeleteMapping("/api/delete/officemate/name/{name}")
+    ResponseEntity<Object> deleteUserByNameRoute (@PathVariable String name) {
 
-        users.forEach (officemate -> {
-           
-            if (officemate.getName ().replaceAll ("\\s", "").equals (name)) repository.deleteById (officemate.getId ());
-            
-        });
+        restService.deleteUserByName(name);
+        
+        return new ResponseEntity<>("User delete success", HttpStatus.NO_CONTENT);
 
-        response.setStatus (204);
     }
 
-    @DeleteMapping("/api/officemate/{id}")
-    public void deleteUser(@PathVariable String id) {
-        repository.deleteById(id);
+    @DeleteMapping("/api/delete/officemate/{id}")
+    ResponseEntity<Object> deleteUser (@PathVariable String id) {
+
+        restService.deleteUser(id);
+
+        return new ResponseEntity<>("User delete success", HttpStatus.NO_CONTENT);
+
     }
+
 }
