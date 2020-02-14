@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class RestServiceImpl implements RestService {
 
     @Autowired
-    private OfficeMateRepository repository;
+    OfficeMateRepository repository;
 
     // GET METHODS
     @Override
@@ -36,18 +36,9 @@ public class RestServiceImpl implements RestService {
     @Override
     public OfficeMate updateUser (String id, OfficeMate newOfficemate) {
         
-        return repository.findById(id)
-                .map (officemate -> {
-                    officemate.setStatus(newOfficemate.getStatus());
-                    officemate.setLocation(newOfficemate.getLocation());
-
-                    return repository.save(officemate);
-                })
-                .orElseGet(() -> {
-                    newOfficemate.setId(id);
-
-                    return repository.save(newOfficemate);
-                });
+        newOfficemate.setId(id);
+        
+        return repository.save(newOfficemate);
 
     }
 

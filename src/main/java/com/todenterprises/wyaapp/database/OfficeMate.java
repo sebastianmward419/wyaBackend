@@ -3,25 +3,21 @@ package com.todenterprises.wyaapp.database;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.todenterprises.wyaapp.database.calender.*;
-
 @Document(collection = "officeMates")
 public class OfficeMate {
 
     @Id
     public String id;
 
-    private final String first_name;
-    private final String last_name;
-    private final String email;
-    private final String password;
+    final String email;
     
-    private String status;
-    private String location;
+    String first_name;
+    String last_name;
+    String status;
+    String location;
+    String password;
 
-    // private Day[] calender = new OfficemateCalender ().createCalender();
-
-    public OfficeMate (String first_name,String last_name, String status, String location, String email, String password) {
+    public OfficeMate (String first_name, String last_name, String status, String location, String email, String password) {
         this.first_name = first_name;
         this.last_name  = last_name;
         this.status     = status;
@@ -36,6 +32,14 @@ public class OfficeMate {
 
     public String getName () {
         return first_name + " " + last_name;
+    }
+
+    public String getFirstname () {
+        return first_name;
+    }
+
+    public String getLastname () {
+        return last_name;
     }
 
     public String getStatus () {
@@ -58,12 +62,24 @@ public class OfficeMate {
         this.id = id;
     }
 
+    public void setFirstname (String firstname) {
+        this.first_name = firstname;
+    }
+
+    public void setLastname (String lastname) {
+        this.last_name = lastname;
+    }
+
     public void setStatus (String status) {
         this.status = status;
     }
 
     public void setLocation (String location) {
         this.location = location;
+    }
+
+    public void setPassword (String password) {
+        this.password = password;
     }
 
 }

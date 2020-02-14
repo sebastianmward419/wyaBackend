@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class RestRoutes {
 
     @Autowired
-    private RestService restService;
+    RestService restService;
 
 // GET ROUTES
     @GetMapping("/api/get/officemates")
@@ -43,7 +43,7 @@ public class RestRoutes {
     ResponseEntity<Object> deleteUserByNameRoute (@PathVariable String name) {
 
         restService.deleteUserByName(name);
-        
+
         return new ResponseEntity<>("User delete success", HttpStatus.NO_CONTENT);
 
     }
