@@ -47,7 +47,7 @@ public class wyaRestTests {
 
     @AfterEach 
     public void terminiate () {
-        Response deleteResponse = RestAssured.given ().delete ("/api/delete/officemate/name/DarwNaitsabes");
+        Response deleteResponse = RestAssured.given ().delete ("/api/delete/officemate/" + idPosted);
 
         deleteResponse
         .then       ()
@@ -91,7 +91,7 @@ public class wyaRestTests {
 
         putResponse
         .then       () 
-        .statusCode (200);
+        .statusCode (202);
 
         Response getResponse = RestAssured.given ().get ("/api/get/officemate/" + idPosted);
 
