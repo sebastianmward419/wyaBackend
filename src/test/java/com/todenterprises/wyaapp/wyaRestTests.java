@@ -36,7 +36,13 @@ public class wyaRestTests {
 
         Response postRequest = RestAssured.given ().contentType (ContentType.JSON).body (reqObj.toJSONString ()).post ("/api/post/officemate");
         
-        idPosted = postRequest.then ().statusCode (200).extract ().jsonPath ().get ("id");
+        idPosted = postRequest
+        .then       ()
+        .statusCode (201)
+        .extract    ()
+        .jsonPath   ()
+        .get        ("id");
+
     }
 
     @AfterEach 
@@ -44,8 +50,9 @@ public class wyaRestTests {
         Response deleteResponse = RestAssured.given ().delete ("/api/delete/officemate/name/DarwNaitsabes");
 
         deleteResponse
-        .then ()
-        .statusCode (200);
+        .then       ()
+        .statusCode (204);
+
     }
 
     @Test
@@ -56,29 +63,47 @@ public class wyaRestTests {
         .then       ()
         .statusCode (200)
         .body       ("$", everyItem (hasKey ("name")));
+
     }
 
     @Test
-    public void postOfficeMate () {
-        
-       
+    public void getOfficeMate () {
+        Response getRequest = RestAssured.given ().get ("/api/get/officemate/" + idPosted);
+
+        getRequest
+        .then ()
+        .statusCode(200);
+
+        getRequest = RestAssured.given ().get ("/api/get/officemate/fakeid");
+
+        getRequest
+        .then       ()
+        .statusCode (200);
     }
 
     @Test
     public void putOfficeMate () {
         reqObj.put ("first_name", "Chris");
         reqObj.put ("last_name", "Palko");
-        reqObj.put ("ststus", "maybe");
+        reqObj.put ("status", "maybe");
         
         Response putResponse = RestAssured.given ().contentType (ContentType.JSON).body (reqObj.toJSONString ()).put ("/api/update/officemate/" + idPosted);
 
         putResponse
         .then       () 
         .statusCode (200);
-    }
 
-    @Test 
-    public void deleteOfficeMateByName () {
+        Response getResponse = RestAssured.given ().get ("/api/get/officemate/" + idPosted);
+
+        JsonPath resObj = getResponse
+        .then       ()
+        .statusCode (200)
+        .extract    ()
+        .jsonPath   ();
+
+        assertEquals ("Chris Palko", resObj.get ("name"));
+        assertEquals ("maybe", resObj.get ("status"));
         
     }
+
 }
