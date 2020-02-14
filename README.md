@@ -1,5 +1,5 @@
 # wyaBackend
-### Start server: 
+### Start Server: 
 ``` ./mvnw spring-boot:run ```
 
 ### Run Tests:
