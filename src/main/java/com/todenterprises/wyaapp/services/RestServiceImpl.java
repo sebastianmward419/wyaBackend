@@ -2,12 +2,14 @@ package com.todenterprises.wyaapp.services;
 
 import java.util.List;
 import java.util.Optional;
+// import java.net.
 
 import com.todenterprises.wyaapp.database.OfficeMate;
 import com.todenterprises.wyaapp.database.OfficeMateRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class RestServiceImpl implements RestService {
@@ -24,6 +26,17 @@ public class RestServiceImpl implements RestService {
     @Override
     public Optional<OfficeMate> getUser (String id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public String getLocations (String location) {
+        String uri = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=" + location + "&types=establishment&key=no api for you";
+        
+        RestTemplate restTemplate = new RestTemplate();
+        
+        String result = restTemplate.getForObject(uri, String.class);
+
+        return result;
     }
 
     // POST METHODS

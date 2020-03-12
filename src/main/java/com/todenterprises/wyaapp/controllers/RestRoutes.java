@@ -26,6 +26,12 @@ public class RestRoutes {
        return new ResponseEntity<>(restService.getUser(id), HttpStatus.OK);
     }
 
+    @GetMapping("/api/get/locations/{location}")
+    ResponseEntity<String> getLocationRoute (@PathVariable String location) {
+        String res = restService.getLocations(location);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
 // POST ROUTES
     @PostMapping("/api/post/officemate")
     ResponseEntity<Object> postUserRoute (@RequestBody OfficeMate officemate) {
@@ -58,3 +64,21 @@ public class RestRoutes {
     }
 
 }
+
+
+// front end (pressing matters)
+//implement redux, css, change status and location
+
+// frontend done
+// can add stuff, css (getting way better), displays users (status, location, name)
+
+// backend
+// slack stuff? slack would be able to change location and status
+
+// backend done
+// crud apis, cron jobs (reset daily), basic tests, db setup
+
+// important
+//   deploy app integrate slack app 
+
+// Hide db url in app properties
