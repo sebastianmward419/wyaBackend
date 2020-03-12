@@ -9,7 +9,7 @@ public interface RestService {
     // GET
     public abstract List<OfficeMate> getUsers ();
     public abstract Optional<OfficeMate> getUser (String id);
-
+    public abstract String getLocations (String input);
     //POST
     public abstract OfficeMate postUser (OfficeMate officemate);
 
