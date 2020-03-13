@@ -28,8 +28,7 @@ public class RestRoutes {
 
     @GetMapping("/api/get/locations/{location}")
     ResponseEntity<String> getLocationRoute (@PathVariable String location) {
-        String res = restService.getLocations(location);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return new ResponseEntity<>(restService.getLocations(location), HttpStatus.OK);
     }
 
 // POST ROUTES
