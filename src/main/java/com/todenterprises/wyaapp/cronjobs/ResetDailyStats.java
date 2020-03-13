@@ -17,12 +17,12 @@ public class ResetDailyStats {
 
     @Scheduled (cron="0 0 0 * * *", zone="US/Pacific")
     public void resetStatusLocation () {
-        System.out.println ("Its tim \n \n \n");
+        System.out.println ("Its time \n \n \n");
 
         List<OfficeMate> officemates = repository.findAll();
 
         officemates.forEach(officemate -> {
-            officemate.setLocation("Unset Previous Location (" +  officemate.getLocation() + ")");
+            officemate.setLocation("???");
             officemate.setStatus("maybe");
 
             repository.save (officemate);
