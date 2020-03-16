@@ -30,7 +30,7 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public String getLocations (String location) {
-        String uri = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=" + location + "&types=establishment&key=no api for you";
+        String uri = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=" + location + "&types=establishment&key=";
         
         RestTemplate restTemplate = new RestTemplate();
         
@@ -71,6 +71,12 @@ public class RestServiceImpl implements RestService {
     @Override
     public void deleteUser (String id) {
         repository.deleteById(id);
+    }
+
+    // SMS METHODS
+    @Override
+    public void sendSMSToAll () {
+
     }
 
 }

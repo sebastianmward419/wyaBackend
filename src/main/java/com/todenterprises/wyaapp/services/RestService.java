@@ -16,8 +16,11 @@ public interface RestService {
     //PUT
     public abstract OfficeMate updateUser (String id, OfficeMate officemate);
 
-    ///DELETE
+    //DELETE
     public abstract void deleteUserByName (String name);
     public abstract void deleteUser (String id);
+
+    // SMS
+    public abstract void sendSMSToAll ();
 
 }

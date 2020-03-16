@@ -62,22 +62,10 @@ public class RestRoutes {
 
     }
 
+    // SMS ROUTES
+    @GetMapping("/api/SMS/sendSMS")
+    ResponseEntity<Object> sendSMSToAllRoute () {
+        
+        return new ResponseEntity<>("SMS sent to all", HttpStatus.NO_CONTENT);
+    }
 }
-
-
-// front end (pressing matters)
-//implement redux, css, change status and location
-
-// frontend done
-// can add stuff, css (getting way better), displays users (status, location, name)
-
-// backend
-// slack stuff? slack would be able to change location and status
-
-// backend done
-// crud apis, cron jobs (reset daily), basic tests, db setup
-
-// important
-//   deploy app integrate slack app 
-
-// Hide db url in app properties
