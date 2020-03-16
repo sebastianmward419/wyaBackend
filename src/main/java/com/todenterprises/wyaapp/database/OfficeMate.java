@@ -15,15 +15,17 @@ public class OfficeMate {
     String last_name;
     String status;
     String location;
-    String password;
+    String phoneNum;
+   
 
-    public OfficeMate (String first_name, String last_name, String status, String location, String email, String password) {
+    public OfficeMate (String first_name, String last_name, String status, String location, String email, String phoneNum) {
         this.first_name = first_name;
         this.last_name  = last_name;
         this.status     = status;
         this.location   = location;
         this.email      = email;
-        this.password   = password;
+        this.phoneNum   = phoneNum;
+       
     }
 
     public String getId () {
@@ -54,8 +56,8 @@ public class OfficeMate {
         return email;
     }
 
-    public String getPassword () {
-        return password;
+    public String getPhoneNum () {
+        return phoneNum;
     }
 
     public void setId (String id) {
@@ -78,8 +80,7 @@ public class OfficeMate {
         this.location = location;
     }
 
-    public void setPassword (String password) {
-        this.password = password;
-    }
-
+   public void setPhoneNum (String phoneNum) {
+       this.phoneNum = phoneNum;
+   }
 }
